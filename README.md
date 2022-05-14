@@ -1,68 +1,17 @@
 # grading-students
 javascript
 
+Damghan University has the following grading policy:
 
-'use strict';
+Every student receives a  in the inclusive range from  to .
+Any  less than  is a failing grade.
+David is a professor at the university and likes to round each student's  according to these rules:
 
-const fs = require('fs');
+If the difference between the  and the next multiple of  is less than , round  up to the next multiple of .
+If the value of  is less than , no rounding occurs as the result will still be a failing grade.
+Examples
 
-process.stdin.resume();
-process.stdin.setEncoding('utf-8');
-
-let inputString = '';
-let currentLine = 0;
-
-process.stdin.on('data', function(inputStdin) {
-    inputString += inputStdin;
-});
-
-
-process.stdin.on('end', function() {
-    inputString = inputString.split('\n');
-
-    main();
-});
-
-function readLine() {
-    return inputString[currentLine++];
-}
-
-
-function gradingStudents(grades) {
-    // Write your code here
-    
-    for(var n in grades){
-        if(grades[n]>=38){
-            var m=grades[n];
-            m=m%10;
-            if(m>5 && 10-m<3){
-                var z=10-m;
-                grades[n]=grades[n]+z;
-            }
-            else if(m<5 && 5-m<3){
-                var z=5-m;
-                grades[n]=grades[n]+z;
-            }
-        }
-    }
-    return grades;
-}
-
-function main() {
-    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
-
-    const gradesCount = parseInt(readLine().trim(), 10);
-
-    let grades = [];
-
-    for (let i = 0; i < gradesCount; i++) {
-        const gradesItem = parseInt(readLine().trim(), 10);
-        grades.push(gradesItem);
-    }
-
-    const result = gradingStudents(grades);
-
-    ws.write(result.join('\n') + '\n');
-
-    ws.end();
-}
+ round to  (85 - 84 is less than 3)
+ do not round (result is less than 40)
+ do not round (60 - 57 is 3 or higher)
+Given the initial value of  for each of David's  students, write code to automate the rounding process.
